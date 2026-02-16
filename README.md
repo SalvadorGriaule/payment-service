@@ -1,6 +1,3 @@
- Voici un README pour votre projet de service de paiement :
-
----
 
 # Payment Service
 
