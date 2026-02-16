@@ -1,13 +1,14 @@
-package main
+package http
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"net/http"
-	"payment-service/store"
+	"payment-service/internal/store"
 	 //"strconv"
 	"time"
 )
+
 
 type PaymentUuid struct {
 	ID string `uri:"id" binding:"required,uuid"`
@@ -19,17 +20,12 @@ type PostPay struct {
 	Currency string `json:"currency" binding:"required"`
 }
 
-func main() {
-
-	router := gin.Default()
-
-	router.POST("/v1/payments", func(c *gin.Context) {
-		var json PostPay
+func Posting(c *gin.Context)  {
+	var json PostPay
 		if err := c.ShouldBindJSON(&json); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-
 		tenID := c.GetHeader("X-Tenant-Id")
 		IdemKey := c.GetHeader("Idempotency-Key")
 		transaction := store.Paiment{}
@@ -66,11 +62,10 @@ func main() {
 		} else {
 			c.JSON(http.StatusAccepted, gin.H{"paymentId": transaction.PaymentId, "status": transaction.Status})
 		}
+}
 
-	})
-
-	router.GET("/v1/payments/:id", func(c *gin.Context) {
-		var getPay PaymentUuid
+func Getting(c *gin.Context) {
+	var getPay PaymentUuid
 		if err := c.ShouldBindUri(&getPay); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
@@ -85,7 +80,4 @@ func main() {
 		if res.PaymentId.String() != "" {
 			c.JSON(http.StatusAccepted, gin.H{"status": res.Status})	
 		}
-	})
-
-	router.Run(":8080")
 }
