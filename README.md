@@ -79,6 +79,9 @@ type Paiment struct {
 # Installation des dépendances
 go mod tidy
 
+# Aller dans le dossier cmd/api
+cd /cmd/api
+
 # Lancement du serveur (port 8080)
 go run main.go memory.go request.go
 ```
