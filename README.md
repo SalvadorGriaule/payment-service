@@ -18,7 +18,7 @@ payment-service/
 |---------|---------|-------------|
 | `main` | `main.go` | Définition des routes et démarrage du serveur |
 | `store` | `memory.go` | Structures de données et stockage en mémoire |
-| `http` | `request.go` | Handlers pour les endpoints REST |
+| `request` | `request.go` | Handlers pour les endpoints REST |
 
 ## API Endpoints
 
