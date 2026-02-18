@@ -86,6 +86,17 @@ cd /cmd/api
 go run main.go memory.go request.go
 ```
 
+## Lancer le test 
+
+```bash
+
+# Aller dans le dossier cmd/test
+cd /cmd/test
+
+# Lancement du test
+go test
+```
+
 ## Dépendances
 
 - `github.com/gin-gonic/gin` - Framework HTTP
