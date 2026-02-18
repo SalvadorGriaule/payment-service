@@ -1,4 +1,4 @@
-package http
+package request
 
 import (
 	"github.com/gin-gonic/gin"
@@ -80,4 +80,14 @@ func Getting(c *gin.Context) {
 		if res.PaymentId.String() != "" {
 			c.JSON(http.StatusAccepted, gin.H{"status": res.Status})	
 		}
+}
+
+func InitRouter() *gin.Engine {
+	router := gin.Default()
+
+	router.POST("/v1/payments", Posting)
+
+	router.GET("/v1/payments/:id", Getting)
+
+	return router
 }
