@@ -32,7 +32,7 @@ func TestPost(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	input := request.PostPay{
-		Amount:   float64(rand.Intn(15000) * 0),
+		Amount:   float64(rand.Intn(15000) * (rand.Intn(3) - 1)),
 		OrderRef: "Ord-" + strconv.Itoa(rand.Int()),
 		Currency: "EUR",
 	}
@@ -48,11 +48,10 @@ func TestPost(t *testing.T) {
 	if err != nil {
 		fmt.Print("error:", err)
 	}
-	fmt.Println(input)
+
 	assert.Equal(t, 202, w.Code)
 	if w.Code == 202 {
 		assert.Contains(t, w.Body.String(), "paymentId")
-		fmt.Println(postResp)
 		assert.True(t, uuid.Validate(postResp.paymentId.String()) == nil)
 
 		assert.Contains(t, w.Body.String(), "status")

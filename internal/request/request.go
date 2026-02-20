@@ -51,14 +51,12 @@ func Posting(c *gin.Context)  {
 			switch {
 			case transaction.Amount <= 0:
 				transaction.Status = store.FAILED
-				fmt.Println("éhere")
 			case transaction.Amount >= 10000:
 				transaction.Status = store.REQUIRES_ACTION
 				transaction.NextAction = true
 			case transaction.Amount < 10000:
 				transaction.Status = store.SUCCEEDED
 			}
-			fmt.Println(transaction)
 			store.Memory = append(store.Memory, transaction)
 		}
 
