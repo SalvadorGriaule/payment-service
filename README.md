@@ -3,14 +3,6 @@
 
 Service de paiement HTTP en Go utilisant le framework Gin. Ce service gère la création et la récupération de transactions de paiement avec stockage en mémoire.
 
-## Structure du projet
-
-```
-payment-service/
-├── main.go           # Point d'entrée - configuration des routes
-├── memory.go         # Package store - modèles et stockage en mémoire
-└── request.go        # Package http - handlers HTTP
-```
 
 ## Packages
 
@@ -83,7 +75,7 @@ go mod tidy
 cd /cmd/api
 
 # Lancement du serveur (port 8080)
-go run main.go memory.go request.go
+go run main.go 
 ```
 
 ## Lancer le test 
