@@ -1,11 +1,14 @@
 package request
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
+	"fmt"
 	"net/http"
 	"payment-service/internal/store"
-	 //"strconv"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+
+	//"strconv"
 	"time"
 )
 
@@ -16,7 +19,7 @@ type PaymentUuid struct {
 
 type PostPay struct {
 	OrderRef string `json:"orderRef" binding:"required"`
-	Amount   float64 `json:"amount" binding:"required,numeric"`
+	Amount   float64 `json:"amount" binding:"numeric"`
 	Currency string `json:"currency" binding:"required"`
 }
 
@@ -35,7 +38,7 @@ func Posting(c *gin.Context)  {
 				transaction = elem
 			}
 		}
-
+		fmt.Println("on this way")
 		if transaction.OrderRef == "" {
 			transaction.Amount = json.Amount 
 			transaction.PaymentId = uuid.New()
@@ -48,12 +51,14 @@ func Posting(c *gin.Context)  {
 			switch {
 			case transaction.Amount <= 0:
 				transaction.Status = store.FAILED
+				fmt.Println("éhere")
 			case transaction.Amount >= 10000:
 				transaction.Status = store.REQUIRES_ACTION
 				transaction.NextAction = true
 			case transaction.Amount < 10000:
 				transaction.Status = store.SUCCEEDED
 			}
+			fmt.Println(transaction)
 			store.Memory = append(store.Memory, transaction)
 		}
 
