@@ -13,13 +13,14 @@ paths:
       summary: get status of a transactions by uuid
       operationId: getPayment
       parameters:
-        - name: id
+        - name: uuid
           in: path
           required: true
           schema:
             type: strings
+            format: uuid
       responses:
-        '200':
+        "200":
           description: the status of request transactions
           content:
             application/json:
@@ -33,8 +34,23 @@ paths:
     post:
       summary: Create a new transaction
       operationId: createPayment
+      parameters:
+        - in: header
+          name: X-Tenant-Id
+          description: for idempotency
+          schema:
+            type: string
+            pattern: ^t-[0-9]+$
+            example: t-45
+        - in: header
+          name: Idempotency-Key
+          description: for idempotency
+          schema:
+            type: string
+            pattern: ^k-[0-9]+$
+            example: k-45
       requestBody:
-        description: order , amount and currency for the transaction
+        description: insert order , amount and currency for a transaction
         required: true
         content:
           application/json:
@@ -44,15 +60,18 @@ paths:
                 amount:
                   type: number
                   format: float
+                  example: 14.59
                   description: amount of transaction
                 orderRef:
                   type: string
+                  pattern: ^ORD-[0-9]+$
+                  example: ORD-123
                   description: order of transaction
                 currency:
                   type: string
                   description: currency of transaction
       responses:
-        '202':
+        "202":
           description: uuid and status of the new transaction
           content:
             application/json:
@@ -67,7 +86,3 @@ paths:
                     type: string
                     enum: [SUCCEEDED, FAILED, REQUIRES_ACTION]
                     description: status of the new transaction
-                              
-                
-                  
-
