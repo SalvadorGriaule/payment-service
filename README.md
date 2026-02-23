@@ -48,6 +48,9 @@ GET /v1/payments/:id
     "status": "SUCCEEDED"
 }
 ```
+### Lien vers la documentation 
+
+http://localhost:8080/docs
 
 ## Modèle de données
 
