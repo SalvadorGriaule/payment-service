@@ -1,0 +1,73 @@
+openapi: 3.1.1
+info:
+  title: payment api
+  description: "la v1 d'un service de paiement"
+  version: "1.0.0"
+
+servers:
+  - url: https://localhost:8080
+
+paths:
+  /v1/payments/{uuid}:
+    get:
+      summary: get status of a transactions by uuid
+      operationId: getPayment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: strings
+      responses:
+        '200':
+          description: the status of request transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [SUCCEEDED, FAILED, REQUIRES_ACTION]
+                    description: the status of transactioon
+    post:
+      summary: Create a new transaction
+      operationId: createPayment
+      requestBody:
+        description: order , amount and currency for the transaction
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+                  description: amount of transaction
+                orderRef:
+                  type: string
+                  description: order of transaction
+                currency:
+                  type: string
+                  description: currency of transaction
+      responses:
+        '202':
+          description: uuid and status of the new transaction
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                    description: uuid of the new transaction
+                  status:
+                    type: string
+                    enum: [SUCCEEDED, FAILED, REQUIRES_ACTION]
+                    description: status of the new transaction
+                              
+                
+                  
+
