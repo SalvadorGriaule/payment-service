@@ -12,7 +12,7 @@ func InitDoc(g *gin.Engine) {
 		Description: "Service de paiment en ligne",
 		DocsPath:    "/docs",
 		SpecPath:    "/Payment.yaml",
-		SpecFile:    "../../internal/docs//OpenApi/Payment.yaml",
+		SpecFile:    "../../internal/docs/OpenApi/Payment.yaml",
 	}
 	g.Use(ginredoc.New(doc))
 }

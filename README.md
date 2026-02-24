@@ -81,6 +81,16 @@ cd /cmd/api
 go run main.go 
 ```
 
+## Démarrage avec docker
+
+```bash
+
+sudo podman build . -t payment-service
+
+sudo podman run -d -p 8080:8080 localhost/payment-service:latest
+
+```
+
 ## Lancer le test 
 
 ```bash
@@ -96,6 +106,7 @@ go test
 
 - `github.com/gin-gonic/gin` - Framework HTTP
 - `github.com/google/uuid` - Génération d'UUID
+- `github.com/mvrilo/go-redoc` - Générateur de documentation OpenApi
 
 ## Fonctionnalités
 
