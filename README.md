@@ -3,6 +3,25 @@
 
 Service de paiement HTTP en Go utilisant le framework Gin. Ce service gère la création et la récupération de transactions de paiement avec stockage en mémoire.
 
+## Arborescence
+
+├── cmd/api/
+│   ├── main.go
+│   └── payment-service
+├── internal/
+│   ├── docs/
+│   │   ├── OpenApi/
+│   │   └── docs.go
+│   ├── request/
+│   │   └── request.go
+│   └── store/
+│       └── memory.go
+├── test/
+│   └── main_test.go
+├── Dockerfile
+├── go.mod
+└── go.sum
+
 
 ## Packages
 
@@ -11,6 +30,7 @@ Service de paiement HTTP en Go utilisant le framework Gin. Ce service gère la c
 | `main` | `main.go` | Définition des routes et démarrage du serveur |
 | `store` | `memory.go` | Structures de données et stockage en mémoire |
 | `request` | `request.go` | Handlers pour les endpoints REST |
+| `docs` | `docs.go` | Documentation OpenApi |
 
 ## API Endpoints
 
